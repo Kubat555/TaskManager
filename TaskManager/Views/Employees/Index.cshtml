@@ -1,0 +1,51 @@
+﻿@model IEnumerable<TaskManager.Models.Employee>
+
+@{
+    ViewData["Title"] = "Сотрудники";
+}
+
+<div class="container mt-4">
+    <h1>Сотрудники</h1>
+
+    <p class="text-end">
+        <a asp-action="Create" class="btn btn-success ">Создать нового сотрудника</a>
+    </p>
+
+    @if (Model.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Имя</th>
+                        <th scope="col">Фамилия</th>
+                        <th scope="col">Отчество</th>
+                        <th scope="col">Email</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var employee in Model)
+                    {
+                        <tr>
+                            <td>@employee.FirstName</td>
+                            <td>@employee.LastName</td>
+                            <td>@employee.MiddleName</td>
+                            <td>@employee.Email</td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@employee.Id" class="btn btn-primary btn-sm">Изменить</a> |
+                                <a asp-action="Delete" asp-route-id="@employee.Id" class="btn btn-danger btn-sm">Удалить</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="text-center">
+            <p class="lead">В настоящее время нет сотрудников.</p>
+        </div>
+    }
+</div>

@@ -1,0 +1,23 @@
+﻿@model TaskManager.DTO.AddEmployeeViewModel
+
+@{
+    ViewData["Title"] = "Добавить сотрудника в проект";
+}
+
+<div class="container mt-4">
+    <h2>Добавить сотрудника в проект: @Model.ProjectName</h2>
+
+    <form asp-action="AddEmployee" method="post">
+        <div class="mb-3">
+            <input type="hidden" asp-for="ProjectId" value="@Model.ProjectId"/>
+            <label asp-for="SelectedEmployeeId" class="form-label">Выберите сотрудника</label>
+            <select asp-for="SelectedEmployeeId" asp-items="@Model.AvailableEmployees" class="form-control">
+                <option value="">Выберите...</option>
+            </select>
+            <span class="text-danger">@Html.ValidationMessageFor(model => model.SelectedEmployeeId)</span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Добавить</button>
+        <a asp-action="Details" asp-route-id="@Model.ProjectId" class="btn btn-secondary">Отмена</a>
+    </form>
+</div>

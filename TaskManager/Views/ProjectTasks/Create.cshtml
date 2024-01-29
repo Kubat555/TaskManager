@@ -1,0 +1,63 @@
+﻿@model TaskManager.Models.ProjectTask
+
+@{
+    ViewData["Title"] = "Создать задачу";
+}
+
+<h1>Создать задачу</h1>
+
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="TaskName" class="control-label">Название задачи</label>
+        <input asp-for="TaskName" class="form-control" required/>
+        <span asp-validation-for="TaskName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Comment" class="control-label">Комментарий</label>
+        <input asp-for="Comment" class="form-control" required />
+        <span asp-validation-for="Comment" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Priority" class="control-label">Приоритет</label>
+        <input asp-for="Priority" class="form-control" required max="3" min="1" />
+        <span asp-validation-for="Priority" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Status" class="control-label">Статус</label>
+        <select asp-for="Status" class="form-control"required>
+            <option value="ToDo">ToDo</option>
+            <option value="InProgress">InProgress</option>
+            <option value="Done">Done</option>
+        </select>
+        <span asp-validation-for="Status" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="AuthorId" class="control-label">Автор задачи</label>
+        <select asp-for="AuthorId" class="form-control" asp-items="ViewBag.AuthorId" required></select>
+        <span asp-validation-for="AuthorId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ExecutorId" class="control-label">Исполнитель</label>
+        <select asp-for="ExecutorId" class="form-control" asp-items="ViewBag.ExecutorId"></select>
+        <span asp-validation-for="ExecutorId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label class="control-label">Проект</label>
+        <input class="form-control" value="@ViewData["ProjectName"]" disabled/>
+        <input asp-for="ProjectId" class="form-control" value="@ViewData["ProjectId"]" hidden />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Создать" class="btn btn-primary mt-3" />
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index" asp-route-projectId="@ViewData["ProjectId"]" class="btn btn-dark mt-3">Назад к списку задач</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

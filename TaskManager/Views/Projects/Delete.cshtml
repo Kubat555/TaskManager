@@ -1,0 +1,56 @@
+﻿@model TaskManager.Models.Project
+
+@{
+    ViewData["Title"] = "Удаление";
+}
+
+<h1>Удаление</h1>
+
+<h3>Вы уверены, что хотите удалить проект?</h3>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Название проекта
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ProjectName)
+        </dd>
+        <dt class="col-sm-2">
+            Компания-заказчик
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CustomerCompany)
+        </dd>
+        <dt class="col-sm-2">
+            Компания-исполнитель
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ExecutorCompany)
+        </dd>
+        <dt class="col-sm-2">
+            Дата начала
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+        <dt class="col-sm-2">
+            Дата окончания
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EndDate)
+        </dd>
+        <dt class="col-sm-2">
+            Приоритет
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Priority)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Удалить</button> |
+        <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-dark">Отмена</a>
+    </form>
+</div>

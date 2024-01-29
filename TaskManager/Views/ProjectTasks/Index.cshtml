@@ -1,0 +1,59 @@
+﻿@model IEnumerable<TaskManager.Models.ProjectTask>
+
+@{
+    ViewData["Title"] = "Задачи";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8">
+            <h2 class="mb-3">Задачи</h2>
+        </div>
+        <div class="col-md-4 text-end">
+            <a asp-action="Create" asp-route-id="@ViewBag.ProjectId" class="btn btn-success">Создать задачу</a> |
+            <a asp-controller="Projects" asp-action="Details" asp-route-id="@ViewBag.ProjectId" class="btn btn-dark">Назад к проекту</a>
+        </div>
+
+    </div>
+
+    @if (Model.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Название</th>
+                        <th scope="col">Приоритет</th>
+                        <th scope="col">Статус</th>
+                        <th scope="col">Автор</th>
+                        <th scope="col">Исполнитель</th>
+                        <th scope="col">Проект</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var task in Model)
+                    {
+                        <tr>
+                            <td>@task.TaskName</td>
+                            <td>@task.Priority</td>
+                            <td>@task.Status</td>
+                            <td>@(task.Author != null ? $"{task.Author.FirstName} {task.Author.LastName}" : "Отсутствует")</td>
+                            <td>@(task.Executor != null ? $"{task.Executor.FirstName} {task.Executor.LastName}" : "Отсутствует")</td>
+                            <td>@(task.Project != null ? task.Project.ProjectName : "Не указан")</td>
+                            <td>
+                                <a asp-action="Details" asp-route-id="@task.Id" class="btn btn-primary btn-sm">Подробнее</a>
+                            </td>
+                        </tr> 
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="text-center">
+            <p class="lead">Пока нет задач.</p>
+        </div>
+    }
+</div>

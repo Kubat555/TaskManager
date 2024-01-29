@@ -1,0 +1,63 @@
+﻿@model TaskManager.Models.ProjectTask
+
+@{
+    ViewData["Title"] = "Удаление";
+}
+
+<h1>Удаление</h1>
+
+<h3>Вы уверены, что хотите удалить это?</h3>
+<div>
+    <h4>Задача</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Название задачи
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TaskName)
+        </dd>
+        <dt class="col-sm-2">
+            Комментарий
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Comment)
+        </dd>
+        <dt class="col-sm-2">
+            Приоритет
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Priority)
+        </dd>
+        <dt class="col-sm-2">
+            Статус
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+        <dt class="col-sm-2">
+            Автор
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Author.FirstName )
+        </dd>
+        <dt class="col-sm-2">
+            Исполнитель
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Executor.FirstName )
+        </dd>
+        <dt class="col-sm-2">
+            Проект
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Project.ProjectName)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Удалить" class="btn btn-danger" /> |
+        <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-dark">Отмена</a>
+    </form>
+</div>

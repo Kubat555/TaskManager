@@ -1,0 +1,54 @@
+﻿@model TaskManager.DTO.ProjectCreateViewModel
+
+@{
+    ViewData["Title"] = "Редактировать проект";
+}
+
+<div class="container mt-4">
+    <h2>Редактировать проект</h2>
+
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="Project.Id" />
+
+        <div class="mb-3">
+            <label asp-for="Project.ProjectName" class="form-label">Название проекта</label>
+            <input asp-for="Project.ProjectName" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Project.CustomerCompany" class="form-label">Компания-заказчик</label>
+            <input asp-for="Project.CustomerCompany" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Project.ExecutorCompany" class="form-label">Компания-исполнитель</label>
+            <input asp-for="Project.ExecutorCompany" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Project.StartDate" class="form-label">Дата начала</label>
+            <input asp-for="Project.StartDate" type="date" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Project.EndDate" class="form-label">Дата окончания</label>
+            <input asp-for="Project.EndDate" type="date" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Project.Priority" class="form-label">Приоритет</label>
+            <input asp-for="Project.Priority" type="number" class="form-control" required max="3" min="1" />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Project.ProjectManagerId" class="form-label">Руководитель проекта</label>
+            <select asp-for="Project.ProjectManagerId" asp-items="@Model.Employees" class="form-control">
+                <option value="">Выбрать...</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+    </form>
+
+  
+</div>

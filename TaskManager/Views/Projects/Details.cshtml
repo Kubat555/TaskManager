@@ -1,0 +1,92 @@
+﻿@model TaskManager.DTO.ProjectDetailsViewModel
+
+@{
+    ViewData["Title"] = "Детали проекта";
+}
+
+<div class="container mt-4">
+    <div class="row mb-5 mt-5">
+        <div class="col-md-8">
+            <a asp-action="Edit" asp-route-id="@Model.Project.Id" class="btn btn-primary ">Изменить проект</a> |
+            <a asp-action="Delete" asp-route-id="@Model.Project.Id" class="btn btn-danger ">Удалить проект</a> |
+            <a asp-action="Index" class="btn btn-dark">Назад</a>
+        </div>
+        <div class="col-md-4 text-end">
+            <a asp-action="AddEmployee" asp-route-id="@Model.Project.Id" class="btn btn-primary ">Добавить сотрудника</a> |
+            <a asp-controller="ProjectTasks" asp-action="Index" asp-route-projectId="@Model.Project.Id" class="btn btn-info">Посмотреть задачи</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Информация о проекте</h2>
+            <div>
+                <dl class="row">
+                    <dt class="col-sm-3">Название проекта</dt>
+                    <dd class="col-sm-9">@Model.Project.ProjectName</dd>
+
+                    <dt class="col-sm-3">Компания-заказчик</dt>
+                    <dd class="col-sm-9">@Model.Project.CustomerCompany</dd>
+
+                    <dt class="col-sm-3">Компания-исполнитель</dt>
+                    <dd class="col-sm-9">@Model.Project.ExecutorCompany</dd>
+
+                    <dt class="col-sm-3">Дата начала</dt>
+                    <dd class="col-sm-9">@Model.Project.StartDate.ToShortDateString()</dd>
+
+                    <dt class="col-sm-3">Дата окончания</dt>
+                    <dd class="col-sm-9">@Model.Project.EndDate.ToShortDateString()</dd>
+
+                    <dt class="col-sm-3">Приоритет</dt>
+                    <dd class="col-sm-9">@Model.Project.Priority</dd>
+                </dl>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="mb-3">
+                <h5>Руководитель проекта</h5>
+                @if (Model.ProjectManager != null)
+                {
+                    <p>@Model.ProjectManager.FirstName @Model.ProjectManager.LastName</p>
+                }
+                else
+                {
+                    <p>Нет руководителя проекта</p>
+                }
+            </div>
+            <div>
+                <h5>Сотрудники</h5>
+                @if (Model.Employees.Any())
+                {
+                    <table class="table table-bordered table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Имя</th>
+                                <th>Email</th>
+                                <th>Действие</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var employee in Model.Employees)
+                            {
+                                <tr>
+                                    <td>@employee.FirstName @employee.LastName</td>
+                                    <td>@employee.Email</td>
+                                    <td>
+                                        <form asp-action="RemoveEmployee" asp-route-projectId="@Model.Project.Id" asp-route-employeeId="@employee.Id" method="post">
+                                            <button type="submit" class="btn btn-danger btn-sm">Удалить из проекта</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p>Нет сотрудников на проекте</p>
+                }
+            </div>
+        </div>
+    </div>
+  
+</div>
